@@ -9,7 +9,7 @@ echo "
 #192.168.122.174 client
 " >> /etc/hosts
 
-while ! ls /var/lib/puppet/ssl/certs/client.pem > /dev/null; do
+while ! ls /var/lib/puppet/ssl/ca/requests/client.pem > /dev/null; do
 echo "stay waiting a key"
 sleep 30
 done
