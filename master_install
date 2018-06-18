@@ -5,7 +5,7 @@ apt -y upgrade
 apt install puppet puppetmaster
 echo "
 127.0.0.1 localhost
-127.0.1.1 '$hostname -f'
+127.0.1.1 $hostname
 #192.168.122.174 client
 " >> /etc/hosts
 
