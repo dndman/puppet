@@ -17,6 +17,8 @@ sleep 30
 done
 echo "okay, we have a cert so we can continue"
 
+puppet cert sign client
+
 . $DIRWAY/createmanifest
 
 
