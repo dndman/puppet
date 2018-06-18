@@ -3,29 +3,29 @@
 DIRWAY=$(dirname $(readlink -f ${BASH_SOURCE[0]}) )
 MANDEST=/usr/share/puppet/modules
 
-#apt update
-#apt -y upgrade
-#apt install puppet puppetmaster
-#echo "
-#127.0.0.1 localhost
-#127.0.1.1 $hostname
-#192.168.122.174 client
-#" >> /etc/hosts
+apt update
+apt -y upgrade
+apt install puppet puppetmaster
+echo "
+127.0.0.1 localhost
+127.0.1.1 $hostname
+192.168.122.174 client
+" >> /etc/hosts
 
-#while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
-#echo "stay waiting a key of ubuntu"
-#sleep 30
-#done
+while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
+echo "stay waiting a key of ubuntu"
+sleep 30
+done
 
-#echo "okay, we have a cert so we can continue"
-#while ! ls /var/lib/puppet/ssl/ca/requests/centos.pem > /dev/null; do
-#echo "stay waiting a key of centos"
-#sleep 30
-#done
+echo "okay, we have a cert so we can continue"
+while ! ls /var/lib/puppet/ssl/ca/requests/centos.pem > /dev/null; do
+echo "stay waiting a key of centos"
+sleep 30
+done
 
 
-#puppet cert sign ubuntu
-#puppet cert sign centos
+puppet cert sign ubuntu
+puppet cert sign centos
 
 
 mkdir -p $MANDEST/me-clamav/manifests
