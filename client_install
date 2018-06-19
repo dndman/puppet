@@ -1,0 +1,20 @@
+#!/bin/bash
+
+apt update
+apt -y upgrade
+apt install puppet
+echo "
+127.0.0.1 localhost
+127.0.1.1 $hostname
+192.168.122.5 puppetmaster
+" >> /etc/hosts
+
+echo "
+[agent]
+server = puppetmaster
+node_name = client
+certname = client
+"
+
+puppet agent --test
+
