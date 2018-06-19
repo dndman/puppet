@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+mkdir -p /etc/puppet/modules/wall/manifests
+touch /etc/puppet/modules/wall/manifests/wall.pp
+echo "
+class wall {
+exec { 'wall':
+command => '/usr/bin/wall IT WORKS'
+}
+}
+" >> /etc/puppet/modules/wall/manifests/wall.pp
+
+echo "
+node default { }
+node 'client' {
+include wall
+}
+" >> /etc/puppet/manifests/site.pp
