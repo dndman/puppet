@@ -14,7 +14,7 @@ echo "
 server = puppetmaster
 node_name = client
 certname = client
-"
+" >> /etc/hosts
 
 puppet agent --test
 
