@@ -9,5 +9,11 @@ echo "
 #192.168.122.174 client
 " >> /etc/hosts
 
+while ! ssh -o "StrictHostKeyChecking=no" -i /tmp/id_rsa root@$1 ls /var/lib/puppet/ssl/certs/client.pem > /dev/null; do
+echo "we stay verifying connect"
+sleep 30
+done
+echo "okay, we have a cert so we can continue"
+
 
 
