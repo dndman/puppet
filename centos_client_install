@@ -2,7 +2,6 @@
 
 
 rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
-yum install puppet-agent
 yum -y install puppet
 systemctl disable puppet.service
 systemctl enable httpd.service
