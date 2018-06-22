@@ -11,13 +11,21 @@ echo "
 #192.168.122.174 client
 " >> /etc/hosts
 
-while ! ls /var/lib/puppet/ssl/ca/requests/client.pem > /dev/null; do
-echo "stay waiting a key"
+while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
+echo "stay waiting a key of ubuntu"
 sleep 30
 done
-echo "okay, we have a cert so we can continue"
 
-puppet cert sign client
+echo "okay, we have a cert so we can continue"
+while ! ls /var/lib/puppet/ssl/ca/requests/centos.pem > /dev/null; do
+echo "stay waiting a key of centos"
+sleep 30
+done
+
+
+puppet cert sign ubuntu
+puppet cert sign centos
+
 
 . $DIRWAY/createmanifest
 

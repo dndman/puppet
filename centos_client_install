@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+yum install puppet-agent
+yum -y install puppet
+systemctl disable puppet.service
+systemctl enable httpd.service
+start  puppet.service
+systemctl start  puppet.service
+systemctl enable puppet.service
+yum install git
+yum -y install htop mc
+
+echo "
+127.0.1.1 $hostname
+192.168.122.5 puppetmaster
+" >> /etc/hosts
+
+echo "
+[agent]
+server = puppetmaster
+node_name = centos
+certname = centos
+" >> /etc/puppet/puppet.conf
+
+
+puppet agent --test
+

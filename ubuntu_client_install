@@ -12,8 +12,8 @@ echo "
 echo "
 [agent]
 server = puppetmaster
-node_name = client
-certname = client
+node_name = ubuntu
+certname = ubuntu
 " >> /etc/puppet/puppet.conf
 
 
