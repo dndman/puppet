@@ -1,78 +1,62 @@
 #!/bin/bash
 
-
 echo "
-
-class passwd {
-file { '/etc/passwd':
-owner => root,
-group => root,
-mode => 644,
-}
-}
-
-
-class wall {
-exec { 'wall':
-command => '/usr/bin/wall IT WORKS'
-}
-}
-
 node default { }
-node 'ubuntu' {
-include wall
-}
+#node 'ubuntu' {
+#include wall
+#}
 
-node 'centos' {
-include wall
-}
+#node 'centos' {
+#include wall
+#}
 #this part is about installation of packages with apache2 as example
 
 #ubuntu example
 class apache {
-resource { 'apt-update':
+exec { 'apt-update':
 command => '/usr/bin/apt-get update'
 }
 
 package { 'apache2':
-require => resource,
+require => exec['apt-update'],
 ensure => installed,
 }
 
 service { 'apache2':
-require => resource,
+require => package['apache2'],
 ensure => running,
 }
 }
 
-node default { }
+#node default { }
 node 'ubuntu' {
 include apache
+include wall
 }
 
 #centos example
 
 class httpd {
-resource { 'yum update':
-command => '/usr/bin/yumdate'
+exec { 'yum update':
+command => '/usr/bin/yum -y update'
 }
 
-package { 'httpd'
-require => resource,
+package { 'httpd':
+require => exec['yum update'],
 ensure => installed,
 }
 
-service { 'httpd'
-require => resource,
+service { 'httpd':
+require => package['httpd'],
 ensure => running,
 }
 }
 
-node default { }
+#node default { }
 node 'centos' {
 include httpd
+include wall
 }
-
 
 
 
