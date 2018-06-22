@@ -15,7 +15,7 @@ server = puppetmaster
 node_name = ubuntu
 certname = ubuntu
 " >> /etc/puppet/puppet.conf
-
+puppet agent --enable
 
 puppet agent --test
 

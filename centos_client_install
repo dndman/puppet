@@ -22,7 +22,7 @@ server = puppetmaster
 node_name = centos
 certname = centos
 " >> /etc/puppet/puppet.conf
-
+puppet agent --enable
 
 puppet agent --test
 

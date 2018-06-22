@@ -1,9 +1,17 @@
 #!/bin/bash
 
 
-
-
 echo "
+
+class passwd {
+file { '/etc/passwd':
+owner => root,
+group => root,
+mode => 644,
+}
+}
+
+
 class wall {
 exec { 'wall':
 command => '/usr/bin/wall IT WORKS'
@@ -11,7 +19,15 @@ command => '/usr/bin/wall IT WORKS'
 }
 
 node default { }
-node 'client' {
+node 'ubuntu' {
 include wall
 }
-" >> /etc/puppet/manifests/site.pp
+
+node 'centos' {
+include wall
+}
+
+
+}
+" > /etc/puppet/manifests/site.pp
+
