@@ -1,0 +1,116 @@
+
+#just a little lawment
+class passwd {
+file { '/etc/passwd':
+owner => root,
+group => root,
+mode => 644,
+}
+}
+
+
+class wall {
+exec { 'wall':
+command => '/usr/bin/wall IT WORKS'
+}
+}
+
+node default { }
+#this part is about adding users, groups and installation of packages with apache2 as example
+
+#ubuntu example
+
+
+class ubuntuuser {
+ user { 'ubuntuuser':
+#ubuntuuser from "user" and "name" dont hav to be the same.
+#"user" is the internal designation that will remain in the logs
+#but "name" wil be a user name on targeted node
+  name => 'ubuntuuser',
+  home => '/home/ubuntuuser',
+  managehome => true,
+  shell => '/bin/bash',
+  ensure => present,
+  password => 'guDIJNwTzMwTE',
+#there is password hash, created by "mkpasswd" from "whois' packet
+  groups => [sudo, ubuntugroup],
+
+     }
+ group { 'ubuntugroup':
+  name => 'ubuntugroup',
+#  gid => '100500',
+  ensure => present,
+       }
+}
+
+
+class apache {
+ exec { 'apt-update':
+      command => '/usr/bin/apt-get update'
+      }
+
+ package { 'apache2':
+         require => exec['apt-update'],
+         ensure => installed,
+         }
+
+ service { 'apache2':
+         require => package['apache2'],
+         ensure => running,
+         }
+}
+
+#node default { }
+node 'ubuntu' {
+ include passwd
+ include apache
+ include ubuntuuser
+ include wall
+}
+
+#centos example
+
+
+
+class httpd {
+ exec { 'yum update':
+      command => '/usr/bin/yum -y update'
+      }
+
+ package { 'httpd':
+         require => exec['yum update'],
+         ensure => installed,
+         }
+
+ service { 'httpd':
+         require => package['httpd'],
+         ensure => running,
+         }
+}
+
+class centosuser {
+ user { 'centosuser':
+  name => 'centosuser',
+  home => '/home/centosuser',
+  managehome => true,
+  shell => '/bin/bash',
+  ensure => present,
+  password => 'guDIJNwTzMwTE',
+  groups => [wheel, centosgroup],
+}
+ group { 'centosgroup':
+  name => 'centosgroup',
+#  gid => '100500',
+  ensure => present,
+       }
+
+
+}
+
+#node default { }
+node 'centos' {
+ include passwd
+ include httpd
+ include centosuser
+ include wall
+}
