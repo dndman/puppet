@@ -5,7 +5,7 @@ include sync
 }
 
 class syncdircreate {
-include cyncdir
+include syncdir
 include dirmessage
 }
 

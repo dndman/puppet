@@ -8,10 +8,10 @@ package { 'ntp':
         require => exec['updatemod'],
         ensure => installed,
 }
-exec { 'updatemod':
-command => '/usr/bin/apt-get update',
-}
-exec { 'updatemessage':
+#exec { 'updatemod':
+#command => '/usr/bin/apt-get update',
+#}
+exec { 'ntpupdatemessage':
 	require => package['ntp'],
 	command => '/usr/bin/wall ntp installed',
 }

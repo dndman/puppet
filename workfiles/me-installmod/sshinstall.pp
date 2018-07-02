@@ -1,13 +1,3 @@
-class updatemod {
-    exec { 'updatemod':
-	command => '/usr/bin/apt-get update',
-	 }
-    exec { 'updatemessage':
-		require => exec['updatemod'],
-		command => '/usr/bin/wall updatemod success',
-	 }
-}
-
 class sshinstall {
 include sinstall
 include nservice
@@ -18,10 +8,10 @@ package { 'ssh':
         require => exec['updatemod'],
         ensure => installed,
 }
-exec { 'updatemod':
-command => '/usr/bin/apt-get update',
-}
-exec { 'updatemessage':
+#exec { 'updatemod':
+#command => '/usr/bin/apt-get update',
+#}
+exec { 'sshinstallmessage':
 	require => package['ssh'],
 	command => '/usr/bin/wall ssh installed',
 }
@@ -29,7 +19,7 @@ exec { 'updatemessage':
 
 
 class sservice {
-service { 'ntp':
+service { 'ssh':
          require => package['ssh'],
          ensure => running,
          }

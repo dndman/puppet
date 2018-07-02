@@ -36,7 +36,7 @@
 # Copyright 2018 Your name here, unless otherwise noted.
 #
 
-class me-updatemodule {
+class me-updatemod {
 include updatemod
 include upgrademod
 

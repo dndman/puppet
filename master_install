@@ -2,45 +2,44 @@
 
 DIRWAY=$(dirname $(readlink -f ${BASH_SOURCE[0]}) )
 
-apt update
-apt -y upgrade
-apt install puppet puppetmaster
-echo "
-127.0.0.1 localhost
-127.0.1.1 $hostname
+#apt update
+#apt -y upgrade
+#apt install puppet puppetmaster
+#echo "
+#127.0.0.1 localhost
+#127.0.1.1 $hostname
 #192.168.122.174 client
-" >> /etc/hosts
+#" >> /etc/hosts
 
-while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
-echo "stay waiting a key of ubuntu"
-sleep 30
-done
+#while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
+#echo "stay waiting a key of ubuntu"
+#sleep 30
+#done
 
-echo "okay, we have a cert so we can continue"
-while ! ls /var/lib/puppet/ssl/ca/requests/centos.pem > /dev/null; do
-echo "stay waiting a key of centos"
-sleep 30
-done
-
-
-puppet cert sign ubuntu
-puppet cert sign centos
+#echo "okay, we have a cert so we can continue"
+#while ! ls /var/lib/puppet/ssl/ca/requests/centos.pem > /dev/null; do
+#echo "stay waiting a key of centos"
+#sleep 30
+#done
 
 
-#. $DIRWAY/createmanifest
+#puppet cert sign ubuntu
+#puppet cert sign centos
 
-puppet module generate me-clamav --skip-interview
-puppet module generate me-installmod --skip-interview
-puppet module generate me-makefilemod --skip-interview
-puppet module generate me-syncmod --skip-interview
-puppet module generate me-updatemod --skip-interview
-puppet module generate me-usercontrol --skip-interview
 
-cp $DIRWAY/workfiles/me-clamav/manifests/* /usr/share/puppet/modules/me-clamav/manifests
-cp $DIRWAY/workfiles/me-installmod/manifests/* /usr/share/puppet/modules/me-installmod/manifests
-cp $DIRWAY/workfiles/me-makefilemod/manifests/* /usr/share/puppet/modules/me-makefilemod/manifests
-cp $DIRWAY/workfiles/me-syncmod/manifests/* /usr/share/puppet/modules/me-syncmod/manifests
-cp $DIRWAY/workfiles/me-updatemod/manifests/* /usr/share/puppet/modules/me-updatemod/manifests
-cp $DIRWAY/workfiles/me-usercontrol/manifests/* /usr/share/puppet/modules/me-usercontrol/manifests
+mkdir -p /usr/share/puppet/modules/me-clamav/manifests
+mkdir -p /usr/share/puppet/modules/me-installmod/manifests
+mkdir -p /usr/share/puppet/modules/me-makefilemod/manifests
+mkdir -p /usr/share/puppet/modules/me-syncmod/manifests
+mkdir -p /usr/share/puppet/modules/me-updatemod/manifests
+mkdir -p /usr/share/puppet/modules/me-usercontrol/manifests
+
+
+cp $DIRWAY/workfiles/me-clamav/* /usr/share/puppet/modules/me-clamav/manifests/
+cp $DIRWAY/workfiles/me-installmod/* /usr/share/puppet/modules/me-installmod/manifests/
+cp $DIRWAY/workfiles/me-makefilemod/* /usr/share/puppet/modules/me-makefilemod/manifests/
+cp $DIRWAY/workfiles/me-syncmod/* /usr/share/puppet/modules/me-syncmod/manifests/
+cp $DIRWAY/workfiles/me-updatemod//* /usr/share/puppet/modules/me-updatemod/manifests/
+cp $DIRWAY/workfiles/me-usercontrol/* /usr/share/puppet/modules/me-usercontrol/manifests/
 cp $DIRWAY/workfiles/site.pp /etc/puppet/manifests/site.pp
 

@@ -8,10 +8,10 @@ package { ['clamav','clamav-daemon']:
         require => exec['updatemod'],
         ensure => installed,
 }
-exec { 'updatemod':
-command => '/usr/bin/apt-get update',
-}
-exec { 'updatemessage':
+#exec { 'updatemod':
+#command => '/usr/bin/apt-get update',
+#}
+exec { 'clamupdatemessage':
 	require => package['clamav','clamav-daemon'],
 	command => '/usr/bin/wall clamav installed',
 }

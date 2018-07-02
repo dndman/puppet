@@ -1,5 +1,0 @@
-#!/bin/bash
-
-DIRWAY=$(dirname $(readlink -f ${BASH_SOURCE[0]}) )
-cat $DIRWAY/manifest > /etc/puppet/manifests/site.pp
-
