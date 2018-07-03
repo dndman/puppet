@@ -1,10 +1,10 @@
 class csclaminstall {
-include csclam
-include csclmessage
+    include csclam
+    include csclmessage
 }
 
 class csclam {
-package { [
+    package { [
 'clamav-server',
 'clamav-data',
 'clamav-update',
@@ -15,25 +15,14 @@ package { [
 'clamav-lib',
 'clamav-server-systemd',
 ]:
-        require => Class['csupdatemod'],
-        ensure => installed,
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
 }
 
 class csclmessage {
-exec { 'csclmessage':
+    exec { 'csclmessage':
 	require => Class['csclam'],
 	command => '/usr/bin/wall clamav installed',
 }
 }
-#class csservice {
-#service { 'clamav-daemon':
-#         require => package['clampack'],
-#         ensure => running,
-#         }
-#exec { 'csclamavemessage':
-#	require => service['clamav-daemon'],
-#	command => '/usr/bin/wall clamav is started',
-#}
-#}
-

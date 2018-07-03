@@ -1,19 +1,19 @@
 class cssshinstall {
-include cssinstall
-include cssservice
+    include cssinstall
+    include cssservice
 }
 
 class cssinstall {
-package { 'openssh-server':
-        require => Class['csupdatemod'],
-        ensure => installed,
+    package { 'openssh-server':
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
-package { 'openssh-clients':
-        require => exec['csupdatemod'],
-        ensure => installed,
+    package { 'openssh-clients':
+	require => exec['csupdatemod'],
+	ensure => installed,
 }
 
-exec { 'cssshinstallmessage':
+    exec { 'cssshinstallmessage':
 	require => package['openssh-server','openssh-clients'],
 	command => '/usr/bin/wall ssh installed',
 }
@@ -21,11 +21,11 @@ exec { 'cssshinstallmessage':
 
 
 class cssservice {
-service { 'sshd':
-         require => Class['cssinstall'],
-         ensure => running,
+    service { 'sshd':
+	require => Class['cssinstall'],
+	ensure => running,
          }
-exec { 'cssshconfirm':
+    exec { 'cssshconfirm':
 	require => service['sshd'],
 	command => '/usr/bin/wall ssh is started',
 }

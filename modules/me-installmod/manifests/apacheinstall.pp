@@ -1,17 +1,15 @@
 class apacheinstall {
-include apinstall
-include apservice
+    include apinstall
+    include apservice
 }
 
 class apinstall {
-package { 'apache2':
-        require => exec['updatemod'],
-        ensure => installed,
+    package { 'apache2':
+	require => exec['updatemod'],
+	ensure => installed,
 }
-#exec { 'updatemod':
-#command => '/usr/bin/apt-get update',
-#}
-exec { 'apacheinstallmessage':
+
+    exec { 'apacheinstallmessage':
 	require => package['apache2'],
 	command => '/usr/bin/wall apache2 installed',
 }
@@ -19,11 +17,11 @@ exec { 'apacheinstallmessage':
 
 
 class apservice {
-service { 'apache2':
-         require => package['apache2'],
-         ensure => running,
-         }
-exec { 'apacheservicemessage':
+    service { 'apache2':
+	require => package['apache2'],
+	ensure => running,
+}
+    exec { 'apacheservicemessage':
 	require => service['apache2'],
 	command => '/usr/bin/wall apache2 is started',
 }

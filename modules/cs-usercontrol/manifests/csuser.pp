@@ -1,23 +1,23 @@
 class csuser {
- user { 'csuser':
-  name => 'csuser',
-  home => '/home/csuser',
-  managehome => true,
-  shell => '/bin/bash',
-  ensure => present,
-  password => 'guDIJNwTzMwTE',
+    user { 'csuser':
+	name => 'csuser',
+	home => '/home/csuser',
+	managehome => true,
+	shell => '/bin/bash',
+	ensure => present,
+	password => 'guDIJNwTzMwTE',
 #there is password hash, created by "mkpasswd" from "whois' packet. you need to generate and insert new.
-  groups => [wheel, csgroup],
-
-     }
+	groups => [wheel, csgroup],
+	require => Class['csgroup'],
+}
 }
 class csgroup {
- group { 'csgroup':
-  name => 'csgroup',
+    group { 'csgroup':
+	name => 'csgroup',
 #  gid => '100500', 
 #for example,if specify gid needed
-  ensure => present,
-       }
+	ensure => present,
+}
 }
 
 class csconfirmation {

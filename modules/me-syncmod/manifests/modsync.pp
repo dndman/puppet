@@ -1,51 +1,52 @@
 class modsync {
-include syncdircreate
-include sync
+    include syncdircreate
+    include sync
 #include srvsync
 }
 
 class syncdircreate {
-include syncdir
-include dirmessage
+    include syncdir
+    include dirmessage
 }
 
 class syncdir {
-file {
+    file {
 [
 '/tmp/syncdir/', 
 '/tmp/syncdir/ponysync', 
 '/tmp/syncdir/syslogsync'
 ]:
-    ensure => 'directory',
-    replace => 'no',
+	ensure => 'directory',
+	replace => 'no',
 }
 }
 class dirmessage {
 #    include cbdir
     exec { 'syncdirmessage':
-    command => '/usr/bin/wall syncronysation directories created or already exist',
-    require => Class['syncdir'],
+	command => '/usr/bin/wall syncronysation directories created or already exist',
+	require => Class['syncdir'],
 }
 }
 
 
 class sync {
-file { '/tmp/syncdir/ponysync/pony':
-ensure => 'present',
-replace => 'yes',
-source => '/tmp/testdir/ponyfile',
+    file { '/tmp/syncdir/ponysync/pony':
+	require => Class['me-makefilemod'],
+	ensure => 'present',
+	replace => 'yes',
+	source => '/tmp/testdir/ponyfile',
 }
-file { '/tmp/syncdir/syslogsync/syslogfile':
-ensure => 'present',
-replace => 'yes',
-source => '/var/log/syslog',
+    file { '/tmp/syncdir/syslogsync/syslogfile':
+	ensure => 'present',
+	replace => 'yes',
+	source => '/var/log/syslog',
 }
 }
 
 class srvsync {
-file { '/tmp/syncdir/serverdata':
-ensure => 'present',
-replace => 'yes',
-source => 'puppet:///etc/puppet/manifests/site.pp',
+    file { '/tmp/syncdir/serverdata':
+	ensure => 'present',
+	replace => 'yes',
+	source => 'puppet:///etc/puppet/manifests/site.pp',
 }
 }

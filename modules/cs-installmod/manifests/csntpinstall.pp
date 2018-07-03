@@ -1,14 +1,14 @@
 class csntpinstall {
-include csninstall
-include csnservice
+    include csninstall
+    include csnservice
 }
 
 class csninstall {
-package { 'ntp':
-        require => Class['csupdatemod'],
-        ensure => installed,
+    package { 'ntp':
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
-exec { 'csntpupdatemessage':
+    exec { 'csntpupdatemessage':
 	require => package['ntp'],
 	command => '/usr/bin/wall ntp installed',
 }
@@ -16,11 +16,11 @@ exec { 'csntpupdatemessage':
 
 
 class csnservice {
-service { 'ntpd':
-         require => package['ntp'],
-         ensure => running,
+    service { 'ntpd':
+	require => package['ntp'],
+	ensure => running,
          }
-exec { 'csntpservicemessage':
+    exec { 'csntpservicemessage':
 	require => service['ntpd'],
 	command => '/usr/bin/wall ntp is started',
 }

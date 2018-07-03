@@ -1,16 +1,13 @@
 class htopinstall {
-include hinstall
+    include hinstall
 }
 
 class hinstall {
-package { 'htop':
-        require => exec['updatemod'],
-        ensure => installed,
+    package { 'htop':
+	require => exec['updatemod'],
+	ensure => installed,
 }
-#exec { 'updatemod':
-#command => '/usr/bin/apt-get update',
-#}
-exec { 'htopinstallmessage':
+    exec { 'htopinstallmessage':
 	require => package['htop'],
 	command => '/usr/bin/wall htop installed',
 }

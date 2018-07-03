@@ -1,12 +1,12 @@
 class csapacheinstall {
-include csapinstall
-include csapservice
+    include csapinstall
+    include csapservice
 }
 
 class csapinstall {
-package { 'httpd':
-        require => Class['csupdatemod'],
-        ensure => installed,
+    package { 'httpd':
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
 exec { 'httpdmessage':
 	require => package['httpd'],
@@ -16,11 +16,11 @@ exec { 'httpdmessage':
 
 
 class csapservice {
-service { 'httpd':
-         require => package['httpd'],
-         ensure => running,
-         }
-exec { 'httpdservicemessage':
+    service { 'httpd':
+	require => package['httpd'],
+	ensure => running,
+}
+    exec { 'httpdservicemessage':
 	require => service['httpd'],
 	command => '/usr/bin/wall httpd is started',
 }

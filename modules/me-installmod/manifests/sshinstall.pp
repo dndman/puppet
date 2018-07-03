@@ -1,17 +1,14 @@
 class sshinstall {
-include sinstall
-include nservice
+    include sinstall
+    include nservice
 }
 
 class sinstall {
-package { 'ssh':
+    package { 'ssh':
         require => exec['updatemod'],
         ensure => installed,
 }
-#exec { 'updatemod':
-#command => '/usr/bin/apt-get update',
-#}
-exec { 'sshinstallmessage':
+    exec { 'sshinstallmessage':
 	require => package['ssh'],
 	command => '/usr/bin/wall ssh installed',
 }
@@ -19,11 +16,11 @@ exec { 'sshinstallmessage':
 
 
 class sservice {
-service { 'ssh':
-         require => package['ssh'],
-         ensure => running,
-         }
-exec { 'sshconfirm':
+    service { 'ssh':
+	require => package['ssh'],
+	ensure => running,
+}
+    exec { 'sshconfirm':
 	require => service['ssh'],
 	command => '/usr/bin/wall ssh is started',
 }

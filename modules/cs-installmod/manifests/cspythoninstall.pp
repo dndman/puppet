@@ -1,13 +1,13 @@
 class cspythoninstall {
-include cspinstall
+    include cspinstall
 }
 
 class cspinstall {
-package { 'python':
-        require => Class['csupdatemod'],
-        ensure => installed,
+    package { 'python':
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
-exec { 'cspythomupdatemessage':
+    exec { 'cspythomupdatemessage':
 	require => package['python'],
 	command => '/usr/bin/wall python installed',
 }

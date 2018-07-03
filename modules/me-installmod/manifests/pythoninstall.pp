@@ -1,16 +1,13 @@
 class pythoninstall {
-include pinstall
+    include pinstall
 }
 
 class pinstall {
-package { 'python':
-        require => exec['updatemod'],
-        ensure => installed,
+    package { 'python':
+	require => exec['updatemod'],
+	ensure => installed,
 }
-#exec { 'updatemod':
-#command => '/usr/bin/apt-get update',
-#}
-exec { 'pythomupdatemessage':
+    exec { 'pythomupdatemessage':
 	require => package['python'],
 	command => '/usr/bin/wall python installed',
 }

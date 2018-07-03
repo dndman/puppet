@@ -1,14 +1,14 @@
 class cshtopinstall {
-include cshinstall
+    include cshinstall
 }
 
 class cshinstall {
-package { 'htop':
-        require => Class['csupdatemod'],
-        ensure => installed,
+    package { 'htop':
+	require => Class['csupdatemod'],
+	ensure => installed,
 }
 
-exec { 'cshtopinstallmessage':
+    exec { 'cshtopinstallmessage':
 	require => package['htop'],
 	command => '/usr/bin/wall htop installed',
 }
