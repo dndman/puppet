@@ -16,6 +16,7 @@ file {
 '/tmp/syncdir/ponysync', 
 '/tmp/syncdir/yumlogsync'
 ]:
+    require => Class['cs-makefilemod'],
     ensure => 'directory',
     replace => 'no',
 }

@@ -4,7 +4,7 @@ include cshinstall
 
 class cshinstall {
 package { 'htop':
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 

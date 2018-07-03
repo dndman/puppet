@@ -5,7 +5,7 @@ include csapservice
 
 class csapinstall {
 package { 'httpd':
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 exec { 'httpdmessage':

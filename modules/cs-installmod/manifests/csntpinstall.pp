@@ -5,7 +5,7 @@ include csnservice
 
 class csninstall {
 package { 'ntp':
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 exec { 'csntpupdatemessage':

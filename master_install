@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIRWAY=$(dirname $(readlink -f ${BASH_SOURCE[0]}) )
-MANDEST=/usr/share/puppet/modules
+MANDEST=/usr/share/puppet/modules/
 
 apt update
 apt -y upgrade
@@ -11,6 +11,10 @@ echo "
 127.0.1.1 $hostname
 192.168.122.174 client
 " >> /etc/hosts
+
+mkdir -p $MANDEST
+cp -r $DIRWAY/modules/* $MANDEST
+cp -r $DIRWAY/mainfile/site.pp /etc/puppet/manifests/site.pp
 
 while ! ls /var/lib/puppet/ssl/ca/requests/ubuntu.pem > /dev/null; do
 echo "stay waiting a key of ubuntu"
@@ -28,32 +32,5 @@ puppet cert sign ubuntu
 puppet cert sign centos
 
 
-mkdir -p $MANDEST/me-clamav/manifests
-mkdir -p $MANDEST/me-installmod/manifests
-mkdir -p $MANDEST/me-makefilemod/manifests
-mkdir -p $MANDEST/me-syncmod/manifests
-mkdir -p $MANDEST/me-updatemod/manifests
-mkdir -p $MANDEST/me-usercontrol/manifests
-mkdir -p $MANDEST/cs-usercontrol/manifests
-mkdir -p $MANDEST/cs-clamav/manifests
-mkdir -p $MANDEST/cs-installmod/manifests
-mkdir -p $MANDEST/cs-makefilemod/manifests
-mkdir -p $MANDEST/cs-syncmod/manifests
-mkdir -p $MANDEST/cs-updatemod/manifests
-
-
-cp $DIRWAY/workfiles/me-clamav/* $MANDEST/me-clamav/manifests/
-cp $DIRWAY/workfiles/me-installmod/* $MANDEST/me-installmod/manifests/
-cp $DIRWAY/workfiles/me-makefilemod/* $MANDEST/me-makefilemod/manifests/
-cp $DIRWAY/workfiles/me-syncmod/* $MANDEST/me-syncmod/manifests/
-cp $DIRWAY/workfiles/me-updatemod/* $MANDEST/me-updatemod/manifests/
-cp $DIRWAY/workfiles/me-usercontrol/* $MANDEST/me-usercontrol/manifests/
-cp $DIRWAY/workfiles/cs-clamav/* $MANDEST/cs-clamav/manifests/
-cp $DIRWAY/workfiles/cs-installmod/* $MANDEST/cs-installmod/manifests/
-cp $DIRWAY/workfiles/cs-makefilemod/* $MANDEST/cs-makefilemod/manifests/
-cp $DIRWAY/workfiles/cs-syncmod/* $MANDEST/cs-syncmod/manifests/
-cp $DIRWAY/workfiles/cs-updatemod/* $MANDEST/cs-updatemod/manifests/
-cp $DIRWAY/workfiles/cs-usercontrol/* $MANDEST/cs-usercontrol/manifests/
-cp $DIRWAY/workfiles/site.pp /etc/puppet/manifests/site.pp
 
 

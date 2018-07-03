@@ -4,7 +4,7 @@ include cspinstall
 
 class cspinstall {
 package { 'python':
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 exec { 'cspythomupdatemessage':

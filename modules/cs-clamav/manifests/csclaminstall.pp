@@ -15,7 +15,7 @@ package { [
 'clamav-lib',
 'clamav-server-systemd',
 ]:
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 }

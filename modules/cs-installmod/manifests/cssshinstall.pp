@@ -5,7 +5,7 @@ include cssservice
 
 class cssinstall {
 package { 'openssh-server':
-        require => exec['csupdatemod'],
+        require => Class['csupdatemod'],
         ensure => installed,
 }
 package { 'openssh-clients':
