@@ -1,6 +1,6 @@
-# == Class: clamav
+# == Class: backupmodule
 #
-# Full description of class clamav here.
+# Full description of class backupmodule here.
 #
 # === Parameters
 #
@@ -23,7 +23,7 @@
 #
 # === Examples
 #
-#  class { 'clamav':
+#  class { 'backupmodule':
 #    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
 #  }
 #
@@ -35,7 +35,7 @@
 #
 # Copyright 2018 Your name here, unless otherwise noted.
 #
-class me-clamav {
-include claminstall
-include clamscan
+class cs-syncmod {
+include csmodsync
+
 }
