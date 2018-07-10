@@ -5,7 +5,7 @@ MANDEST=/usr/share/puppet/modules/
 
 apt update
 apt -y upgrade
-apt install puppet puppetmaster
+apt install -y puppet puppetmaster
 echo "
 127.0.0.1 localhost
 127.0.1.1 $hostname
