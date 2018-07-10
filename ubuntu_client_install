@@ -7,13 +7,13 @@ apt install -y puppet
 echo "
 127.0.0.1 localhost
 127.0.1.1 $hostname
-192.168.122.5 puppetmaster
+192.168.122.95 puppetmaster
 " >> /etc/hosts
 
 echo "
 [agent]
 server = puppetmaster
-node_name = ubuntu
+node_name = ubuntu.puppet.client
 certname = ubuntu
 " >> /etc/puppet/puppet.conf
 puppet agent --enable
