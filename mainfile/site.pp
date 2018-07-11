@@ -6,31 +6,15 @@ class passwd {
 }
 }
 
-case $operatingsystem {
-    centos: { $modpack = "centosmod" }
-    ubuntu: { $modpack = "ubuntumod" }
-}
+
 
 node default {
-    include $modpack
+    include sysupdatemod
     include passwd
+    include clamav
+    include installmod
+    include makefilemod
+    include syncmod
+    include usercontrol
 }
 
-
-class ubuntumod {
-    include me-clamav
-    include me-installmod
-    include me-makefilemod
-    include me-syncmod
-    include me-updatemod
-    include me-usercontrol
-}
-
-class centosmod {
-    include cs-clamav
-    include cs-installmod
-    include cs-makefilemod
-    include cs-syncmod
-    include cs-updatemod
-    include cs-usercontrol
-}
